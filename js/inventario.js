@@ -14,12 +14,7 @@ function render(){const term=$("invSearch").value.toLowerCase(),cat=$("invCatego
 function close(){$("invModal").classList.remove("open");$("invModal").setAttribute("aria-hidden","true");document.body.classList.remove("modal-open")}
 function open(x){$("invForm").reset();newPhoto="";currentPhoto=x?.photo||"";$("invId").value=x?.id||"";$("invModalTitle").textContent=x?"Editar producto":"Agregar producto";$("invName").value=x?.name||"";$("invCode").value=x?.code||"";$("invCat").value=x?.category||"";$("invBrand").value=x?.brand||"";$("invQty").value=x?.qty??"";$("invMin").value=x?.min??3;$("invCost").value=x?.cost??"";$("invPrice").value=x?.price??"";const src=api.foto(currentPhoto);$("invPhotoPreview").src=src;$("invPhotoPreview").hidden=!src;$("invModal").classList.add("open");$("invModal").setAttribute("aria-hidden","false");document.body.classList.add("modal-open")}
 $("invAdd").onclick=()=>open();$("invEmptyAdd").onclick=()=>open();$("invClose").onclick=close;$("invCancel").onclick=close;$("invSearch").oninput=render;$("invCategory").onchange=render;
-  $("phonePhoto").onchange=async e=>{
-    const file=e.target.files[0]; if(!file)return;
-    if(file.size>40000000){alert("La fotografía debe pesar menos de 40 MB.");e.target.value="";return;}
-    try{ newPhoto=await api.leerFoto(file,1000); showPreview(newPhoto); }
-    catch(err){ alert(err.message); e.target.value=""; }
-  };try{newPhoto=await api.leerFoto(file,1000);$("invPhotoPreview").src=newPhoto;$("invPhotoPreview").hidden=false}catch(err){alert(err.message);e.target.value=""}};
+$("invPhoto").onchange=async e=>{const file=e.target.files[0];if(!file)return;if(file.size>40000000){alert("La imagen debe pesar menos de 40 MB.");e.target.value="";return;}try{newPhoto=await api.leerFoto(file,1000);$("invPhotoPreview").src=newPhoto;$("invPhotoPreview").hidden=false}catch(err){alert(err.message);e.target.value=""}};
 $("invForm").onsubmit=async e=>{e.preventDefault();const id=$("invId").value,previous=rows.find(a=>String(a.id)===id),button=$("invForm").querySelector('[type="submit"]');
  const body={name:$("invName").value.trim(),code:$("invCode").value.trim(),category:$("invCat").value,brand:$("invBrand").value.trim(),qty:$("invQty").value,min:$("invMin").value,cost:$("invCost").value,price:$("invPrice").value,photo:newPhoto||null,featured:!!previous?.featured};
  button.disabled=true;
