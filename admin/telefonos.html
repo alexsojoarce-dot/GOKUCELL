@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teléfonos | GOKUCELL</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/estilos.css">
+<script src="../js/auth.js"></script></head>
+<body class="admin-body">
+<div class="admin-shell">
+  <aside class="admin-sidebar" aria-label="Menú administrativo">
+    <a class="brand admin-brand" href="index.html" aria-label="GOKUCELL, inicio del panel"><span><strong>GOKUCELL</strong><small>PANEL ADMINISTRATIVO</small></span></a>
+    <div class="admin-store"><i class="store-status"></i>Panel del negocio</div>
+    <div class="admin-label">MENÚ PRINCIPAL</div>
+    <nav class="admin-menu">
+      <a href="index.html"><span>▦</span>Resumen</a>
+      <a class="active" href="telefonos.html"><span>▣</span>Teléfonos</a>
+      <a href="inventario.html"><span>▤</span>Inventario</a>
+      
+      <a href="garantias.html"><span>◇</span>Garantías</a>
+      <a href="reportes.html"><span>▥</span>Reportes</a>
+    </nav>
+    <div class="admin-label">SISTEMA</div>
+    <nav class="admin-menu"><a href="../index.html"><span>↗</span>Ver sitio público</a><a href="#" data-gc-logout><span>⇥</span>Cerrar sesión</a></nav>
+  </aside>
+
+  <main class="admin-main">
+    <header class="admin-top"><button class="admin-mobile-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <div class="admin-breadcrumb"><a href="index.html">GOKUCELL</a><b>/</b>Teléfonos</div>
+      <div class="admin-user"><span class="user-avatar">G</span><span><strong>Administrador</strong><small>Cuenta local</small></span></div>
+    </header>
+
+    <section class="admin-welcome phone-welcome">
+      <div><div class="eyebrow"><i></i>MÓDULO DE GESTIÓN</div><h1>Teléfonos</h1><p>Controlá los equipos que ingresan al taller y consultá su estado en todo momento.</p></div>
+      <button class="admin-primary-btn" id="newPhoneBtn" type="button">＋ Registrar teléfono</button>
+    </section>
+
+    <section class="phone-stat-grid" aria-label="Resumen de teléfonos">
+      <article class="phone-stat"><span class="phone-stat-icon blue">▣</span><div><small>Total registrados</small><strong id="totalCount">0</strong></div></article>
+      <article class="phone-stat"><span class="phone-stat-icon orange">◷</span><div><small>En revisión</small><strong id="reviewCount">0</strong></div></article>
+      <article class="phone-stat"><span class="phone-stat-icon purple">⚙</span><div><small>En reparación</small><strong id="repairCount">0</strong></div></article>
+      <article class="phone-stat"><span class="phone-stat-icon green">✓</span><div><small>Listos para entregar</small><strong id="readyCount">0</strong></div></article>
+    </section>
+
+    <section class="admin-panel phone-list-panel">
+      <div class="phone-toolbar">
+        <div><h2>Equipos del taller</h2><p>Consultá, filtrá y actualizá los registros.</p></div>
+        <div class="phone-filters">
+          <label class="phone-search"><span>⌕</span><input id="phoneSearch" type="search" placeholder="Buscar cliente, teléfono o modelo..." aria-label="Buscar teléfonos"></label>
+          <select id="statusFilter" aria-label="Filtrar por estado"><option value="">Todos los estados</option><option>Recibido</option><option>En revisión</option><option>En reparación</option><option>Listo para entregar</option><option>Entregado</option></select>
+        </div>
+      </div>
+      <div class="phone-table-wrap">
+        <table class="admin-table phone-table">
+          <thead><tr><th>EQUIPO</th><th>CLIENTE</th><th>INGRESO</th><th>ESTADO</th><th>CONTACTO</th><th>ACCIONES</th></tr></thead>
+          <tbody id="phoneTableBody"></tbody>
+        </table>
+      </div>
+      <div class="phone-empty" id="phoneEmpty"><span>▣</span><strong>No hay teléfonos registrados</strong><small>Cuando agregués un equipo, aparecerá en esta lista.</small><button class="admin-primary-btn" id="emptyAddBtn" type="button">＋ Registrar primer teléfono</button></div>
+    </section>
+
+    <div class="admin-footer-note"><i class="note-dot"></i>Prototipo Front End: los registros de prueba se guardan en este navegador. La conexión PHP/MySQL se integrará posteriormente.</div>
+  </main>
+</div>
+
+<div class="phone-modal-backdrop" id="phoneModal" aria-hidden="true">
+  <section class="phone-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <header class="phone-modal-header"><div><div class="eyebrow"><i></i>REGISTRO DE TALLER</div><h2 id="modalTitle">Registrar teléfono</h2><p>Completá la información del equipo recibido.</p></div><button class="phone-close" id="closeModalBtn" type="button" aria-label="Cerrar">×</button></header>
+    <form id="phoneForm">
+      <input type="hidden" id="phoneId">
+      <div class="phone-form-grid">
+        <label>Nombre del cliente *<input id="customerName" required maxlength="90" placeholder="Ej. Carlos Rodríguez"></label>
+        <label>Teléfono de contacto *<input id="customerPhone" required type="tel" maxlength="25" placeholder="Ej. 8888-8888"></label>
+        <label>Marca *<select id="phoneBrand" required><option value="">Seleccionar marca</option><option>Apple</option><option>Samsung</option><option>Motorola</option><option>Xiaomi</option><option>Huawei</option><option>Honor</option><option>OPPO</option><option>Realme</option><option>Otra</option></select></label>
+        <label>Modelo *<input id="phoneModel" required maxlength="70" placeholder="Ej. iPhone 13 Pro"></label>
+        <label>Fecha de ingreso *<input id="receivedDate" type="date" required></label>
+        <label>Estado del equipo<select id="phoneStatus"><option>Recibido</option><option>En revisión</option><option>En reparación</option><option>Listo para entregar</option><option>Entregado</option></select></label>
+        <label class="full-field">Problema reportado *<textarea id="phoneProblem" required rows="3" maxlength="500" placeholder="Describí la falla que indica el cliente..."></textarea></label>
+        <label class="full-field">Diagnóstico / notas<textarea id="phoneDiagnosis" rows="3" maxlength="500" placeholder="Anotá observaciones o diagnóstico técnico (opcional)..."></textarea></label>
+        <label class="full-field">Fotografía del equipo <input id="phonePhoto" type="file" accept="image/*"><small class="field-help">Opcional. La imagen se utiliza como referencia visual en este prototipo.</small><img id="photoPreview" class="phone-photo-preview" alt="Vista previa de la fotografía del equipo" hidden></label>
+      </div>
+      <div class="phone-form-actions"><button class="phone-secondary-btn" id="cancelModalBtn" type="button">Cancelar</button><button class="admin-primary-btn" type="submit">Guardar registro</button></div>
+    </form>
+  </section>
+</div>
+
+<div class="phone-modal-backdrop" id="detailModal" aria-hidden="true">
+  <section class="phone-modal phone-detail-modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <header class="phone-modal-header"><div><div class="eyebrow"><i></i>FICHA DEL EQUIPO</div><h2 id="detailTitle">Detalle del teléfono</h2><p>Información registrada en el taller.</p></div><button class="phone-close" id="closeDetailBtn" type="button" aria-label="Cerrar">×</button></header>
+    <div id="phoneDetailContent"></div>
+  </section>
+</div>
+   <script src="../js/api.js"></script>
+   <script src="../js/ui-effects.js"></script>
+   <script src="../js/telefonos.js"></script>
+
+<script src="../js/admin-nav.js"></script><script src="../js/movimiento.js"></script></body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reportes | GOKUCELL</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/estilos.css"><script src="../js/auth.js"></script></head><body class="admin-body">
+<div class="admin-shell"><aside class="admin-sidebar" aria-label="Menú administrativo">
+<a class="brand admin-brand" href="index.html" aria-label="GOKUCELL, inicio del panel"><span><strong>GOKUCELL</strong><small>PANEL ADMINISTRATIVO</small></span></a>
+<div class="admin-store"><i class="store-status"></i>Panel del negocio</div><div class="admin-label">MENÚ PRINCIPAL</div>
+<nav class="admin-menu">
+<a href="index.html"><span>▦</span>Resumen</a><a href="telefonos.html"><span>▣</span>Teléfonos</a>
+<a href="inventario.html" class=""><span>▤</span>Inventario</a>
+<a href="garantias.html" class=""><span>◇</span>Garantías</a><a href="reportes.html" class="active"><span>▥</span>Reportes</a></nav>
+<div class="admin-label">SISTEMA</div><nav class="admin-menu"><a href="../index.html"><span>↗</span>Ver sitio público</a><a href="#" data-gc-logout><span>⇥</span>Cerrar sesión</a></nav></aside>
+<main class="admin-main"><header class="admin-top"><button class="admin-mobile-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button><div class="admin-breadcrumb"><a href="index.html">GOKUCELL</a><b>/</b>Reportes</div>
+<div class="admin-user"><span class="user-avatar">G</span><span><strong>Administrador</strong><small>Cuenta local</small></span></div></header>
+<section class="admin-welcome"><div><div class="eyebrow"><i></i>MÓDULO DE GESTIÓN</div><h1>Reportes</h1><p>Consultá resúmenes de la actividad del negocio.</p></div></section>
+
+<section class="phone-stat-grid"><article class="phone-stat"><span class="phone-stat-icon blue">▣</span><div><small>Equipos registrados</small><strong id="repPhones">0</strong></div></article><article class="phone-stat"><span class="phone-stat-icon green">▤</span><div><small>Productos en inventario</small><strong id="repProducts">0</strong></div></article><article class="phone-stat"><span class="phone-stat-icon purple">♙</span><div><small>Teléfonos entregados</small><strong id="repDelivered">0</strong></div></article><article class="phone-stat"><span class="phone-stat-icon orange">◇</span><div><small>Garantías vigentes</small><strong id="repWarranties">0</strong></div></article></section>
+<section class="admin-panel report-panel"><div class="phone-toolbar"><div><h2>Resumen de actividad</h2><p>Indicadores calculados a partir de los registros de este navegador.</p></div><div class="phone-filters"><button class="phone-secondary-btn" id="refreshReports" type="button">↻ Actualizar</button><button class="admin-primary-btn" id="printReports" type="button">Imprimir / Guardar PDF</button></div></div>
+<div class="report-content"><div class="report-block"><h3>Estado de los teléfonos</h3><div id="phoneReport" class="report-bars"></div></div><div class="report-block"><h3>Inventario y alertas</h3><div id="stockReport" class="report-summary-list"></div></div><div class="report-block"><h3>Garantías</h3><div id="warrantyReport" class="report-summary-list"></div></div></div>
+</section>
+<div class="admin-footer-note"><i class="note-dot"></i>Los reportes reflejan los datos de prueba almacenados localmente. Se conectarán a MySQL en la siguiente etapa.</div>
+</main></div>
+<script src="../js/api.js"></script>
+<script src="../js/ui-effects.js"></script>
+<script src="../js/reportes.js"></script>
+
+<script src="../js/admin-nav.js"></script><script src="../js/movimiento.js"></script></body></html>

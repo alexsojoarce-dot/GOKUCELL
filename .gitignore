@@ -1,0 +1,4 @@
+img/subidas/*
+!img/subidas/.gitkeep
+Thumbs.db
+*.log

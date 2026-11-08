@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventario | GOKUCELL</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/estilos.css"><script src="../js/auth.js"></script></head><body class="admin-body">
+<div class="admin-shell"><aside class="admin-sidebar" aria-label="Menú administrativo">
+<a class="brand admin-brand" href="index.html" aria-label="GOKUCELL, inicio del panel"><span><strong>GOKUCELL</strong><small>PANEL ADMINISTRATIVO</small></span></a>
+<div class="admin-store"><i class="store-status"></i>Panel del negocio</div><div class="admin-label">MENÚ PRINCIPAL</div>
+<nav class="admin-menu">
+<a href="index.html"><span>▦</span>Resumen</a><a href="telefonos.html"><span>▣</span>Teléfonos</a>
+<a href="inventario.html" class="active"><span>▤</span>Inventario</a>
+<a href="garantias.html" class=""><span>◇</span>Garantías</a><a href="reportes.html" class=""><span>▥</span>Reportes</a></nav>
+<div class="admin-label">SISTEMA</div><nav class="admin-menu"><a href="../index.html"><span>↗</span>Ver sitio público</a><a href="#" data-gc-logout><span>⇥</span>Cerrar sesión</a></nav></aside>
+<main class="admin-main"><header class="admin-top"><button class="admin-mobile-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button><div class="admin-breadcrumb"><a href="index.html">GOKUCELL</a><b>/</b>Inventario</div>
+<div class="admin-user"><span class="user-avatar">G</span><span><strong>Administrador</strong><small>Cuenta local</small></span></div></header>
+<section class="admin-welcome"><div><div class="eyebrow"><i></i>MÓDULO DE GESTIÓN</div><h1>Inventario</h1><p>Controlá los productos, accesorios y existencias del negocio.</p></div><button class="admin-primary-btn" id="invAdd" type="button">＋ Agregar producto</button></section>
+
+<section class="phone-stat-grid">
+ <article class="phone-stat"><span class="phone-stat-icon blue">▤</span><div><small>Productos registrados</small><strong id="invTotal">0</strong></div></article>
+ <article class="phone-stat"><span class="phone-stat-icon orange">!</span><div><small>Stock bajo</small><strong id="invLow">0</strong></div></article>
+ <article class="phone-stat"><span class="phone-stat-icon purple">$</span><div><small>Valor del inventario</small><strong id="invValue">₡0</strong></div></article>
+ <article class="phone-stat"><span class="phone-stat-icon green">✓</span><div><small>Disponibles</small><strong id="invAvailable">0</strong></div></article>
+</section>
+<section class="admin-panel phone-list-panel"><div class="phone-toolbar"><div><h2>Productos y accesorios</h2><p>Controlá existencias, costos y precios de venta.</p></div><div class="phone-filters"><label class="phone-search"><span>⌕</span><input id="invSearch" type="search" placeholder="Buscar producto o código..."></label><select id="invCategory"><option value="">Todas las categorías</option><option>Estuches</option><option>Cargadores</option><option>Cables</option><option>Audífonos</option><option>Protectores</option><option>Power banks</option><option>Bocinas</option><option>Cargadores inalámbricos</option><option>Pilas</option><option>Repuestos</option><option>Otros</option></select></div></div>
+<div class="phone-table-wrap"><table class="admin-table phone-table" id="invTable"><thead><tr><th>PRODUCTO</th><th>CÓDIGO</th><th>CATEGORÍA</th><th>EXISTENCIAS</th><th>PRECIO VENTA</th><th>ESTADO</th><th>ACCIONES</th></tr></thead><tbody id="invRows"></tbody></table></div>
+<div class="phone-empty" id="invEmpty"><span>▤</span><strong>No hay productos registrados</strong><small>Agregá el primer producto al inventario.</small><button class="admin-primary-btn" id="invEmptyAdd" type="button">＋ Agregar producto</button></div></section>
+<div class="admin-footer-note"><i class="note-dot"></i>Prototipo Front End: datos guardados en este navegador. La integración PHP/MySQL se realizará posteriormente.</div>
+<div class="phone-modal-backdrop" id="invModal" aria-hidden="true"><section class="phone-modal" role="dialog" aria-modal="true"><header class="phone-modal-header"><div><div class="eyebrow"><i></i>CONTROL DE EXISTENCIAS</div><h2 id="invModalTitle">Agregar producto</h2><p>Registrá los datos del artículo.</p></div><button class="phone-close" id="invClose" type="button">×</button></header>
+<form id="invForm"><input type="hidden" id="invId"><div class="phone-form-grid">
+<label>Nombre del producto *<input id="invName" required maxlength="90" placeholder="Ej. Cargador tipo C"></label>
+<label>Código / SKU<input id="invCode" maxlength="40" placeholder="Ej. CG-001"></label>
+<label>Categoría *<select id="invCat" required><option value="">Seleccionar</option><option>Estuches</option><option>Cargadores</option><option>Cables</option><option>Audífonos</option><option>Protectores</option><option>Power banks</option><option>Bocinas</option><option>Cargadores inalámbricos</option><option>Pilas</option><option>Repuestos</option><option>Otros</option></select></label>
+<label>Marca<input id="invBrand" maxlength="60" placeholder="Ej. Samsung"></label>
+<label>Cantidad disponible *<input id="invQty" type="number" min="0" step="1" required></label>
+<label>Stock mínimo<input id="invMin" type="number" min="0" step="1" value="3"></label>
+<label>Precio de compra (₡) *<input id="invCost" type="number" min="0" step="0.01" required></label>
+<label>Precio de venta (₡) *<input id="invPrice" type="number" min="0" step="0.01" required></label><label class="full-field">Fotografía del producto<input id="invPhoto" type="file" accept="image/*"><small class="field-help">Subí una imagen clara del producto. Se mostrará también en el catálogo público.</small><img id="invPhotoPreview" class="product-photo-preview" alt="Vista previa de la fotografía del producto" hidden></label>
+</div><div class="phone-form-actions"><button class="phone-secondary-btn" id="invCancel" type="button">Cancelar</button><button class="admin-primary-btn" type="submit">Guardar producto</button></div></form></section></div>
+</main></div>
+<script src="../js/api.js"></script>
+<script src="../js/ui-effects.js"></script>
+<script src="../js/inventario.js"></script>
+
+<script src="../js/admin-nav.js"></script><script src="../js/movimiento.js"></script></body></html>
