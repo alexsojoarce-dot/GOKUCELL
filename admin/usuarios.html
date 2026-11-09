@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrar usuarios | GOKUCELL</title>
+  <style>
+    :root{font-family:Arial,Helvetica,sans-serif;color:#26364d;background:#f1f5fb}
+    *{box-sizing:border-box}
+    body{margin:0;padding:28px 16px}
+    .contenedor{max-width:1050px;margin:auto}
+    .encabezado{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}
+    h1{margin:0;color:#262b40;font-size:clamp(24px,4vw,34px)}
+    .subtitulo{margin:8px 0 0;color:#718096}
+    .volver{display:inline-block;padding:10px 14px;border-radius:8px;background:#06457f;color:white;text-decoration:none;font-weight:700;font-size:13px}
+    .panel{background:white;border:1px solid #dce5ef;border-radius:14px;padding:22px;margin-bottom:20px;box-shadow:0 8px 24px #263b5b0d}
+    h2{margin:0 0 16px;color:#26364d;font-size:19px}
+    form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    label{display:grid;gap:7px;font-size:13px;font-weight:700}
+    input{width:100%;padding:12px;border:1px solid #d6e0ec;border-radius:8px;font:inherit}
+    input:focus{outline:2px solid #c5def7;border-color:#0474c4}
+    .ancho{grid-column:1/-1}
+    .ayuda{font-size:12px;color:#718096;font-weight:400}
+    .acciones-form{display:flex;gap:10px;align-items:center}
+    button{border:0;border-radius:8px;padding:11px 15px;font-weight:700;cursor:pointer}
+    button:disabled{opacity:.5;cursor:not-allowed}
+    .primario{background:#06457f;color:#fff}
+    .secundario{background:#e8f1fb;color:#06457f;margin-right:6px}
+    .peligro{background:#fff0ef;color:#a3332a}
+    .tabla-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;min-width:550px}
+    th,td{padding:13px 12px;text-align:left;border-bottom:1px solid #e7edf4;font-size:13px}
+    th{color:#718096;font-size:11px;letter-spacing:.04em}
+    .acciones{white-space:nowrap}
+    .mensaje{padding:12px 14px;border-radius:8px;margin:0 0 15px;font-size:13px}
+    .mensaje[hidden]{display:none}
+    .mensaje.error{background:#fff0ef;color:#a3332a}
+    .mensaje.exito{background:#eaf7ef;color:#216b3b}
+    .vacio{padding:18px;text-align:center;color:#718096}
+    @media(max-width:650px){body{padding:18px 12px}.encabezado{align-items:flex-start;flex-direction:column}form{grid-template-columns:1fr}.ancho{grid-column:auto}.panel{padding:17px}}
+  </style>
+</head>
+<body>
+  <main class="contenedor">
+    <header class="encabezado">
+      <div>
+        <h1>Administración de usuarios</h1>
+        <p class="subtitulo">Registro y mantenimiento de las cuentas con acceso al panel GOKUCELL.</p>
+      </div>
+      <a class="volver" href="índice.html">Volver al panel</a>
+    </header>
+
+    <section class="panel">
+      <h2 id="tituloFormulario">Registrar usuario</h2>
+      <div id="mensajeUsuarios" class="mensaje" role="status" hidden></div>
+      <form id="formUsuario">
+        <label>Nombre completo
+          <input id="nombre" maxlength="100" autocomplete="name" required>
+        </label>
+        <label>Nombre de usuario
+          <input id="usuario" minlength="3" maxlength="50" autocomplete="username" required>
+        </label>
+        <label class="ancho">Contraseña
+          <input id="contrasena" type="password" minlength="10" autocomplete="new-password" required>
+          <span class="ayuda" id="ayudaContrasena">Mínimo 10 caracteres. La contraseña se guarda mediante hash.</span>
+        </label>
+        <div class="acciones-form ancho">
+          <button class="primario" id="guardarUsuario" type="submit">Registrar usuario</button>
+          <button class="secundario" id="cancelarEdicion" type="button" hidden>Cancelar edición</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>Usuarios registrados</h2>
+      <p id="sinUsuarios" class="vacio" hidden>No hay usuarios registrados.</p>
+      <div class="tabla-wrap">
+        <table id="tablaUsuarios">
+          <thead><tr><th>NOMBRE</th><th>USUARIO</th><th>ACCIONES</th></tr></thead>
+          <tbody id="filasUsuarios"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="../js/api.js"></script>
+  <script src="../js/usuarios.js"></script>
+</body>
+</html>
