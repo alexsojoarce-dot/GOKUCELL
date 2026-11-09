@@ -84,5 +84,38 @@ Funciones compartidas
  Diagrama de la base de datos
  Diagrama relacional=(docs/diagrama-bd)
 
+ Aporte de Landon: Base de datos
+ 
+Creación y diseño
+- Creación de la base de datos MySQL gokucell (codificación utf8mb4).
+- Diseño de las tablas del sistema y definición de los campos necesarios para
+  cada módulo.
+- Entrega del archivo Basedatos/gokucell.sql, que crea la base, las tablas y
+  los datos iniciales, listo para importar desde phpMyAdmin.
+
+Tablas
+| Tabla | Módulo | Contenido |
+
+| usuarios | Login | Administradores del panel (usuario, nombre y contraseña cifrada) |
+| telefonos| Teléfonos y reparaciones | Cliente, contacto, marca, modelo, fecha de recepción, estado, problema, diagnóstico, foto, fecha de entrega y código de consulta |
+| garantias | Garantías | Cliente, equipo, tipo, fechas de inicio y vencimiento, duración en meses y observaciones |
+| productos| Inventario y catálogo | Código, nombre, categoría, marca, existencias, mínimo, costo, precio, foto y destacado |
+
+ Llaves y relaciones
+- Llave primaria id autoincremental en las cuatro tablas.
+- Llave foránea garantias.telefono_id que referencia a telefonos.id`
+  (relación uno a uno: cada teléfono entregado tiene una garantía).
+- Si se elimina un teléfono, su garantía se conserva con telefono_id en
+  NULL (ON DELETE SET NULL).
+Restricciones para evitar duplicados
+- usuarios.usuario único.
+- telefonos.codigo_consulta único: no hay dos equipos con el mismo código.
+- productos.codigo único (permite valores vacíos).
+- garantias.telefono_id único: no se crea más de una garantía por teléfono.
+
+ Datos iniciales
+- Usuario administrador (`admin`).
+- Catálogo inicial de productos 1HORA.
+
 Integrantes
 - Alexander: PHP y Backend
